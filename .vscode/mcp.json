@@ -2,12 +2,10 @@
   "servers": {
     "fabric-analytics": {
       "type": "stdio",
-      "command": "node",
-      "args": ["C:\\Users\\saravi\\Fabric-Analytics-MCP\\build\\index.js"],
-      "cwd": "C:\\Users\\saravi\\Fabric-Analytics-MCP",
+      "command": "/Users/panlei/Desktop/project/FabricAnalytics/scripts/start-mcp-with-token.sh",
+      "args": [],
       "env": {
-        "FABRIC_AUTH_METHOD": "azure_cli",
-        "PATH": "${env:PATH}"
+        "PATH": "${env:PATH}:/opt/homebrew/bin"
       }
     }
   }

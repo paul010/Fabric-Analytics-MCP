@@ -1762,48 +1762,7 @@ server.tool(
 );
 
 // Additional migration tools for capacity and Spark pool management
-
-server.tool(
-  "fabric_list_capacities",
-  ListFabricCapacitiesSchema.shape,
-  {
-    title: "List Fabric Capacities",
-    description: "List all available Fabric capacities with Spark VCore specifications and burst capacity details. Helps with capacity planning for migrations."
-  },
-  async (params: any) => {
-    try {
-      console.error(`🏗️ Listing Fabric capacities...`);
-      const result = await migrationTools.fabric_list_capacities.handler(params);
-
-      let output = `# 🏗️ Microsoft Fabric Capacities\n\n`;
-      output += `**Total Capacities:** ${result.count}\n\n`;
-      output += `## Available Capacities\n\n`;
-      output += `| Display Name | SKU | State | Region | Spark VCores | Max (Burst) |\n`;
-      output += `|--------------|-----|-------|--------|--------------|-------------|\n`;
-
-      result.capacities.forEach((cap: any) => {
-        output += `| ${cap.displayName} | ${cap.sku} | ${cap.state} | ${cap.region} | ${cap.sparkVCores} | ${cap.maxSparkVCoresWithBurst} |\n`;
-      });
-
-      output += `\n💡 **Spark VCore Burst:**\n`;
-      output += `- F2: 4 base → 20 burst (5x)\n`;
-      output += `- F4+: Base × 3 (e.g., F4: 8 → 24, F64: 128 → 384)\n\n`;
-      output += `🎯 **Next Steps:**\n`;
-      output += `1. Use \`fabric_assign_capacity\` to assign a capacity to your workspace\n`;
-      output += `2. Consider capacity requirements for your Spark pools\n`;
-
-      return {
-        content: [{ type: 'text', text: output }]
-      };
-    } catch (error) {
-      const errorMsg = error instanceof Error ? error.message : String(error);
-      return {
-        content: [{ type: 'text', text: `❌ Error listing capacities:\n${errorMsg}` }],
-        isError: true
-      };
-    }
-  }
-);
+// Note: fabric_list_capacities is already registered above, so we skip it here
 
 server.tool(
   "fabric_assign_capacity",
